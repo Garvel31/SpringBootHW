@@ -1,5 +1,6 @@
 package ru.pobeda.springboothw;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -8,6 +9,8 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
+import ru.pobeda.springboothw.service.CarService;
+import ru.pobeda.springboothw.service.CarServiceImpl;
 
 import javax.sql.DataSource;
 
@@ -42,4 +45,16 @@ public class JavaConfig {
         transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
         return transactionManager;
     }
+
+    @Bean
+    public CarServiceImpl carService(){
+        return new CarServiceImpl() {
+        };
+    }
+
+    @Bean
+    public ObjectMapper objectMapper() {
+        return new ObjectMapper();
+    }
+
 }

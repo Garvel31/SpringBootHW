@@ -1,4 +1,4 @@
-package ru.pobeda.springboothw.entity;
+package ru.pobeda.springboothw.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,6 +17,7 @@ public class Car {
     @Id
     @GeneratedValue
     private long id;
+
 
     private String mnfName;
     private String modelName;
