@@ -7,6 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.*;
 import ru.pobeda.springboothw.entities.Car;
+import ru.pobeda.springboothw.exhandler.IdExeptionHandler;
 import ru.pobeda.springboothw.repositories.CarRepository;
 
 import java.util.Collections;
@@ -28,19 +29,9 @@ public class CarRestController {
                 : Collections.singletonList(carRepository.findCarById(id));
     }
 
-    //--------------КАК СДЕЛАТЬ ОБРАБОТКУ ОШИБКИ ЕСЛИ ПЕРЕДАНЫ НЕ ПРАВИЛЬНЫЕ ДАННЫЕ (НЕ В ФОРМАТЕ JASON)??
+    //--------------КАК СДЕЛАТЬ ОБРАБОТКУ ОШИБКИ ЕСЛИ ПЕРЕДАНЫ НЕ ПРАВИЛЬНЫЕ ДАННЫЕ (НЕ В ФОРМАТЕ JASON)?? ДЕЛАЮТ ЕЕ ВОБЩЕ?
     @PostMapping(value = "create", consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = MediaType.APPLICATION_JSON_VALUE)
     public Object addCar(@RequestBody(required = false) Car body) {
-
-//---------ПЕРЕДЕЛАТЬ В МЕТОД UPDATE
-        Long id = 1L;
-        List<Car> newCar = carRepository.findCarById(id);
-
-        newCar.get(0).setMnfName(body.getMnfName());
-        newCar.get(0).setModelName(body.getModelName());
-        carRepository.save(newCar.get(0));
-
-
 //        try {
         if (body != null && body.getMnfName() != null && !body.getMnfName().isEmpty()
                 && body.getModelName() != null && !body.getModelName().isEmpty())
@@ -53,6 +44,23 @@ public class CarRestController {
 
     }
 
-    //-------------UPDATE - АПДЕЙТИМ ВСЕ ПОЛЯ ИЛИ ЛЮБЫЕ КОТОРЫЕ ПРИДУТ?
+    //-------------UPDATE - АПДЕЙТИМ ВСЕ ПОЛЯ ИЛИ ЛЮБЫЕ ОДИНАКОВЫЕ КОТОРЫЕ ПРИДУТ?
+    @PostMapping(value = "update", consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Object updateCar(@RequestParam(required = true) Long id, @RequestBody(required = false) Car body) {
+        List<Car> newCar = carRepository.findCarById(id);
+        newCar.get(0).setMnfName(body.getMnfName());
+        newCar.get(0).setModelName(body.getModelName());
+        newCar.get(0).setEngine(body.getEngine());
+        return carRepository.save(newCar.get(0));
+    }
+
+    @IdExeptionHandler
+    @PostMapping(value = "delete", consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = MediaType.APPLICATION_JSON_VALUE)
+    public void deleteCar(@RequestParam(required = true) Long id) {
+        carRepository.deleteById(id);
+    }
+
+    //Надо ли создавать отдельный репозиторий на все сущности
+
 }
 

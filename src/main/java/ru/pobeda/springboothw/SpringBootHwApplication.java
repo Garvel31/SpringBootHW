@@ -26,7 +26,7 @@ public class SpringBootHwApplication {
         final CarService carServiceImpl = applicationContext.getBean(CarService.class);
 
 
-       // final Car havalCar = carServiceImpl.addCar("Haval", "F7x");
+       final Car havalCar = carServiceImpl.addCar("Haval", "F7x", "petrol");
 
         //CarRepository carRepository = applicationContext.getBean(CarRepository.class);
 //        carRepository.save(new Car("Mazda", "3" ));
