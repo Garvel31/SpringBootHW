@@ -22,8 +22,18 @@ public class Car {
     @OneToOne(cascade = CascadeType.ALL)
     private Engine engine;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "STEERINGWHEEL_ID")
+    private SteeringWheel steeringWheel;
+
     public Car(String mnfName, String modelName) {
         this.mnfName = mnfName;
         this.modelName = modelName;
     }
+
+    //    @PreRemove
+//    public void preRemove() {
+//       engine.setType(null);
+//    }
+
 }

@@ -14,7 +14,7 @@ public class ControllerAdvice {
     @ExceptionHandler(MissingServletRequestParameterException.class)
     public ResponseEntity handle(MissingServletRequestParameterException ex) {
 
-        return ResponseEntity.status(400).body(ex);
+        return ResponseEntity.status(500).body(ex);
 
     }
 

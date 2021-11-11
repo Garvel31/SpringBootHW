@@ -8,6 +8,6 @@ import java.util.Optional;
 public interface EngineRepository extends CrudRepository<Engine, Long> {
 
     List<Engine> findAll();
-    Optional<Engine> findById(Long id);
+    List<Engine> findEngineById(Long id);
 
 }

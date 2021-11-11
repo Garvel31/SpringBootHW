@@ -2,43 +2,47 @@ package ru.pobeda.springboothw;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.beans.factory.config.PropertiesFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
-import ru.pobeda.springboothw.service.CarService;
 import ru.pobeda.springboothw.service.CarServiceImpl;
 
 import javax.sql.DataSource;
-import java.util.Properties;
 
 
 @Configuration
 @EnableJpaRepositories(basePackages = "ru.pobeda.springboothw.repositories")
 public class JavaConfig {
 
-   @Value("${username}")
-    private String username;
+    @Value("${driver-class-name}")
+    private String driverClassName;
+
+    @Value("${name}")
+    private String name;
+
+    @Value("${password}")
+    private String password;
+
+    @Value("${URL}")
+    private String url;
 
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource.setUsername(username);
-        dataSource.setPassword("root");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/sbhw");
+        dataSource.setDriverClassName(driverClassName);
+        dataSource.setUsername(name);
+        dataSource.setPassword(password);
+        dataSource.setUrl(url);
         return dataSource;
     }
 
     @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory(){
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         vendorAdapter.setGenerateDdl(true);
         LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
@@ -56,7 +60,7 @@ public class JavaConfig {
     }
 
     @Bean
-    public CarServiceImpl carService(){
+    public CarServiceImpl carService() {
         return new CarServiceImpl() {
         };
     }
