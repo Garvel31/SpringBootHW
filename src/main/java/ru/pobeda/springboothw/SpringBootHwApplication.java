@@ -1,6 +1,7 @@
 package ru.pobeda.springboothw;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
@@ -16,6 +17,9 @@ import ru.pobeda.springboothw.service.CarServiceImpl;
 @SpringBootApplication
 public class SpringBootHwApplication {
 
+//    @Value("${username}")
+//    public String username;
+//
     public static void main(String[] args) {
 
 
@@ -24,9 +28,9 @@ public class SpringBootHwApplication {
 
         ApplicationContext applicationContext = new AnnotationConfigApplicationContext(JavaConfig.class);
         final CarService carServiceImpl = applicationContext.getBean(CarService.class);
+//        System.out.println();
 
-
-       final Car havalCar = carServiceImpl.addCar("Haval", "F7x", "petrol");
+//       final Car havalCar = carServiceImpl.addCar("Haval", "F7x", "petrol");
 
         //CarRepository carRepository = applicationContext.getBean(CarRepository.class);
 //        carRepository.save(new Car("Mazda", "3" ));
