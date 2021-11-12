@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import ru.pobeda.springboothw.entities.*;
 import ru.pobeda.springboothw.repositories.CarRepository;
 
+import java.util.List;
+
 
 @Service
 public class CarServiceImpl implements CarService {
@@ -13,16 +15,15 @@ public class CarServiceImpl implements CarService {
     private CarRepository carRepository;
 
 
-
     public CarServiceImpl() {
 
     }
 
     @Override
     public Car addCar(String mnfName, String modelName, String engineType) {
-        final  Car newCar = new Car(mnfName, modelName);
+        final Car newCar = new Car(mnfName, modelName);
 
-        final SteeringWheel steeringWheel = new SteeringWheel(String.join(" ", newCar.getMnfName(),newCar.getModelName(),"steering wheel"));
+        final SteeringWheel steeringWheel = new SteeringWheel(String.join(" ", newCar.getMnfName(), newCar.getModelName(), "steering wheel"));
         newCar.setSteeringWheel(steeringWheel);
 
         Engine engine = new Engine(engineType);
@@ -34,13 +35,24 @@ public class CarServiceImpl implements CarService {
         newCar.setEngine(engine);
 
         Manual cylinderHeadManual = new Manual("Cylinder head manual for " + engineType);
-        engine.getManuals().add(cylinderHeadManual);
+        engine.getManual().add(cylinderHeadManual);
         cylinderHeadManual.getEngines().add(engine);
-        Manual electricManual = new Manual("Electrics manual for " + engineType);
-        engine.getManuals().add(electricManual);
-        electricManual.getEngines().add(engine);
 
 
         return carRepository.save(newCar);
     }
+
+    public void deleteCar(Long id) {
+        carRepository.deleteById(id);
+    }
+
+    public void updateCar(Long id, String mnfName, String modelName, Engine engine) {
+        List<Car> newCar = carRepository.findCarById(id);
+        newCar.get(0).setMnfName(mnfName);
+        newCar.get(0).setModelName(modelName);
+        newCar.get(0).setEngine(engine);
+        carRepository.save(newCar.get(0));
+    }
+
 }
+

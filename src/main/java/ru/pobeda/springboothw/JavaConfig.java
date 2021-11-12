@@ -11,6 +11,9 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import ru.pobeda.springboothw.service.CarServiceImpl;
+import ru.pobeda.springboothw.service.EngineServiceImpl;
+import ru.pobeda.springboothw.service.ManualServiceImpl;
+import ru.pobeda.springboothw.service.SteeringWheelServiceImpl;
 
 import javax.sql.DataSource;
 
@@ -64,6 +67,25 @@ public class JavaConfig {
         return new CarServiceImpl() {
         };
     }
+
+    @Bean
+    public EngineServiceImpl engineService() {
+        return new EngineServiceImpl() {
+        };
+    }
+
+    @Bean
+    public ManualServiceImpl manualService() {
+        return new ManualServiceImpl() {
+        };
+    }
+
+    @Bean
+    public SteeringWheelServiceImpl steeringWheelService() {
+        return new SteeringWheelServiceImpl() {
+        };
+    }
+
 
     @Bean
     public ObjectMapper objectMapper() {

@@ -6,10 +6,14 @@ import ru.pobeda.springboothw.entities.Engine;
 import ru.pobeda.springboothw.repositories.CarRepository;
 import ru.pobeda.springboothw.repositories.EngineRepository;
 
-public class EngineServiceImpl implements EngineService{
+public class EngineServiceImpl implements EngineService {
 
     @Autowired
     private EngineRepository engineRepository;
+
+    @Autowired
+    private CarRepository carRepository;
+
 
     @Override
     public Engine addEngine(String type) {
@@ -18,8 +22,10 @@ public class EngineServiceImpl implements EngineService{
         return engineRepository.save(newEngine);
     }
 
-//    @Override
-//    public Engine findEngine(Car car) {
-//        return engineRepository.findEngineByCarId(car.getId());
-//    }
+    public void deleteEngine(Long id) {
+        Car newCar = carRepository.findCarByEngineId(id);
+        newCar.setEngine(null);
+        engineRepository.deleteById(id);
+    }
+
 }

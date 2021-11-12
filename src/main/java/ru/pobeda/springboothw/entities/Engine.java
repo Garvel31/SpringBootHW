@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import ru.pobeda.springboothw.repositories.CarRepository;
 
 import javax.persistence.*;
 import java.util.LinkedList;
@@ -16,6 +17,7 @@ import java.util.List;
 @Getter
 public class Engine {
 
+
     @Id
     @GeneratedValue
     private Long id;
@@ -23,33 +25,23 @@ public class Engine {
 
     private String type;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "CAR_ID", referencedColumnName = "ID")
-    private Car car;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "engine")
     private List<Gear> gears;
 
     @ManyToMany(cascade = CascadeType.ALL)
-    private List<Manual> manuals;
+    private List<Manual> manual;
+
 
     public Engine(String engineType) {
         this.type = engineType;
         this.gears = new LinkedList<>();
-        this.manuals = new LinkedList<>();
+        this.manual = new LinkedList<>();
     }
 
     public String toString() {
         return type;
     }
-
-//    @PreRemove
-//    public void preRemove() {
-//       Engine newEngine = new Engine("");
-//       //car.setEngine(newEngine);
-//       this.car.setEngine(newEngine);
-//    }
-
 
 
 }

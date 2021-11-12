@@ -9,6 +9,8 @@ import ru.pobeda.springboothw.entities.Manual;
 import ru.pobeda.springboothw.entities.SteeringWheel;
 import ru.pobeda.springboothw.repositories.ManualRepository;
 import ru.pobeda.springboothw.repositories.SteeringWheelRepository;
+import ru.pobeda.springboothw.service.ManualService;
+import ru.pobeda.springboothw.service.ManualServiceImpl;
 
 import java.util.Collections;
 import java.util.List;
@@ -20,6 +22,9 @@ public class ManualRestController {
 
     @Autowired
     ManualRepository manualRepository;
+
+    @Autowired
+    ManualServiceImpl manualService;
 
 
     @GetMapping(value = "read", consumes = {MediaType.ALL_VALUE}, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -50,7 +55,8 @@ public class ManualRestController {
 
     @PostMapping(value = "delete", consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = MediaType.APPLICATION_JSON_VALUE)
     public void deleteEngine(@RequestParam(required = true) Long id) {
-        manualRepository.deleteById(id);
+        manualService.deleteManual(id);
+
     }
 
 

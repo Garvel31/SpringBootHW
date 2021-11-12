@@ -7,6 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import ru.pobeda.springboothw.entities.SteeringWheel;
 import ru.pobeda.springboothw.repositories.SteeringWheelRepository;
+import ru.pobeda.springboothw.service.SteeringWheelServiceImpl;
 
 import java.util.Collections;
 import java.util.List;
@@ -18,6 +19,9 @@ public class SteeringWheelRestController {
 
     @Autowired
     SteeringWheelRepository steeringWheelRepository;
+
+    @Autowired
+    SteeringWheelServiceImpl steeringWheelService;
 
 
     @GetMapping(value = "read", consumes = {MediaType.ALL_VALUE}, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -48,7 +52,7 @@ public class SteeringWheelRestController {
 
     @PostMapping(value = "delete", consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = MediaType.APPLICATION_JSON_VALUE)
     public void deleteEngine(@RequestParam(required = true) Long id) {
-        steeringWheelRepository.deleteById(id);
+        steeringWheelService.deleteSTWheel(id);
     }
 
 

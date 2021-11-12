@@ -9,6 +9,8 @@ import ru.pobeda.springboothw.entities.Car;
 import ru.pobeda.springboothw.entities.Engine;
 import ru.pobeda.springboothw.repositories.CarRepository;
 import ru.pobeda.springboothw.repositories.EngineRepository;
+import ru.pobeda.springboothw.service.EngineService;
+import ru.pobeda.springboothw.service.EngineServiceImpl;
 
 import javax.persistence.PreRemove;
 import java.util.Collections;
@@ -22,6 +24,9 @@ public class EngineRestController {
 
     @Autowired
     EngineRepository engineRepository;
+
+    @Autowired
+    EngineServiceImpl engineService;
 
 
     @GetMapping(value = "read", consumes = {MediaType.ALL_VALUE}, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -52,7 +57,7 @@ public class EngineRestController {
 
     @PostMapping(value = "delete", consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = MediaType.APPLICATION_JSON_VALUE)
     public void deleteEngine(@RequestParam(required = true) Long id) {
-        engineRepository.deleteById(id);
+        engineService.deleteEngine(id);
     }
 
 

@@ -22,7 +22,7 @@ public class Manual {
 
     String type;
 
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "manuals")
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "manual")
     @JsonIgnore
     List<Engine> engines;
 
