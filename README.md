@@ -14,3 +14,10 @@ http://localhost:8080/api/car/read
 Car - update
 http://localhost:8080/api/car/update?id=1
 
+{
+        "mnfName": "Kamaz",
+        "modelName": "13331",
+        "engine": {
+            "type": "diesel"
+    }
+}
