@@ -1,5 +1,6 @@
 package ru.pobeda.springboothw.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,6 +21,7 @@ public class Gear {
 
     @ManyToOne
     @JoinColumn(name = "ENGINE_ID", referencedColumnName = "ID")
+    @JsonIgnore
     private Engine engine;
 
     public Gear(int size) {

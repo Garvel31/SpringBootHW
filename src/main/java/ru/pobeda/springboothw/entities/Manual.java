@@ -1,6 +1,7 @@
 package ru.pobeda.springboothw.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,12 +22,13 @@ public class Manual {
 
     String type;
 
-//    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "manuals")
-//    List<Engine> engines;
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "manuals")
+    @JsonIgnore
+    List<Engine> engines;
 
     public Manual(String type) {
         this.type  = type;
- //       this.engines = new LinkedList<>();
+        this.engines = new LinkedList<>();
 
     }
 }

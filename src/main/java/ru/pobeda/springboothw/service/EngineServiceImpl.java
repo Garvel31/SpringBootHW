@@ -17,4 +17,9 @@ public class EngineServiceImpl implements EngineService{
 
         return engineRepository.save(newEngine);
     }
+
+//    @Override
+//    public Engine findEngine(Car car) {
+//        return engineRepository.findEngineByCarId(car.getId());
+//    }
 }

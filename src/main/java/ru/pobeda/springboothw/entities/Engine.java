@@ -24,19 +24,19 @@ public class Engine {
     private String type;
 
     @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "CAR_ID", referencedColumnName = "ID")
     private Car car;
 
-//    @OneToMany(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "ENGINE_ID", referencedColumnName = "ID")
-//    private List<Gear> gears;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "engine")
+    private List<Gear> gears;
 
-//    @ManyToMany(cascade = CascadeType.ALL)
-//    private List<Manual> manuals;
+    @ManyToMany(cascade = CascadeType.ALL)
+    private List<Manual> manuals;
 
     public Engine(String engineType) {
         this.type = engineType;
-//        this.gears = new LinkedList<>();
-//        this.manuals = new LinkedList<>();
+        this.gears = new LinkedList<>();
+        this.manuals = new LinkedList<>();
     }
 
     public String toString() {

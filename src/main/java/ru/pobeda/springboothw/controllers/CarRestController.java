@@ -7,7 +7,9 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import ru.pobeda.springboothw.entities.Car;
 import ru.pobeda.springboothw.repositories.CarRepository;
+import ru.pobeda.springboothw.service.CarServiceImpl;
 
+import javax.annotation.PostConstruct;
 import java.util.Collections;
 import java.util.List;
 
@@ -17,8 +19,15 @@ import java.util.List;
 public class CarRestController {
 
     @Autowired
+    CarServiceImpl carService;
+
+    @Autowired
     CarRepository carRepository;
 
+    @PostConstruct
+    private void postConstruct() {
+        carService.addCar("BMV", "3", "petrol");
+    }
 
     @GetMapping(value = "read", consumes = {MediaType.ALL_VALUE}, produces = MediaType.APPLICATION_JSON_VALUE)
     public Object showJson(@RequestParam(required = false) Long id) {
